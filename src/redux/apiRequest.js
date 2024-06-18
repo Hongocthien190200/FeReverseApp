@@ -1,4 +1,6 @@
 import axios from "axios";
+import { saveAs } from 'file-saver';
+
 //Đăng ký/Đăng nhập/User
 import {
     RegisterFailed, RegisterStart, RegisterSuccess,
@@ -24,8 +26,8 @@ import {
     getquestionstart, getquestionSuccess, getquestionFailed,
 } from "./questions";
 //Đề thi
-import{
-    createExamStart,createExamSuccess, createExamFailed
+import {
+    createExamStart, createExamSuccess, createExamFailed
 } from "./exams"
 axios.defaults.baseURL = 'https://be-reverse-app.onrender.com';
 
@@ -48,7 +50,7 @@ export const deleteUser = async (id, dispatch, successCallback, errCallback, acc
 export const updatePassWord = async (newData, dispatch, successCallback, errCallback, accessToken, axiosJWT) => {
     await dispatch(updatePassWordStart());
     try {
-        await axiosJWT.patch("/api/changepw",newData, {
+        await axiosJWT.patch("/api/changepw", newData, {
             headers: { token: `Bearer ${accessToken}` },
         });
         await dispatch(updatePassWordSuccess());
@@ -107,7 +109,7 @@ export const registerUser = async (user, dispatch, successCallback, errCallback,
     }
 }
 //Lấy chuyên đề theo các phân loại
-export const getAllSubjectByAllCategory = async (user, dispatch,axiosJWT) => {
+export const getAllSubjectByAllCategory = async (user, dispatch, axiosJWT) => {
     dispatch(getallcategoryStart());
     try {
         const res = await axiosJWT.get("/api/category/showall", user);
@@ -120,7 +122,7 @@ export const getAllSubjectByAllCategory = async (user, dispatch,axiosJWT) => {
     }
 }
 //LẤY TẤT CẢ CHUYÊN ĐỀ KHÔNG PHỤ THUỘC PHÂN LOẠI
-export const getSubject = async (user, dispatch,axiosJWT) => {
+export const getSubject = async (user, dispatch, axiosJWT) => {
     dispatch(getsubjectstart());
     try {
         const res = await axiosJWT.get("/api/subject", user);
@@ -140,7 +142,7 @@ export const getCategory = async (user, dispatch, axiosJWT) => {
         await dispatch(getcategorySuccess(res.data));
     }
     catch (error) {
-        if (error.response && error.response.data && error.response.data.message!== "") {
+        if (error.response && error.response.data && error.response.data.message !== "") {
             dispatch(getcategoryFailed());
         }
     }
@@ -208,7 +210,7 @@ export const getQuestionById = async (id, user, dispatch, axiosJWT) => {
         await dispatch(getquestionSuccess(res.data));
     }
     catch (error) {
-        if (error.response && error.response.data && error.response.data.message!== "") {
+        if (error.response && error.response.data && error.response.data.message !== "") {
             dispatch(getquestionFailed());
         }
     }
@@ -217,10 +219,27 @@ export const getQuestionById = async (id, user, dispatch, axiosJWT) => {
 export const createExam = async (dispatch, accessToken, newExam, axiosJWT, successCallback, errCallback) => {
     dispatch(createExamStart());
     try {
-        await axiosJWT.post("/api/create-exam", newExam, {
+        const response = await axiosJWT.post("/api/create-exam", newExam, {
             headers: { token: `Bearer ${accessToken}` },
-        })
+            responseType: 'blob', // Cần thiết để nhận file blob từ server
+        });
+
         dispatch(createExamSuccess());
+
+        // Trích xuất tên file từ header nếu có
+        const contentDisposition = response.headers['content-disposition'];
+        let fileName = 'exam.docx';
+        if (contentDisposition) {
+            const match = contentDisposition.match(/filename="(.+)"/);
+            if (match && match[1]) {
+                fileName = match[1];
+            }
+        }
+
+        // Lưu file sử dụng FileSaver
+        const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        saveAs(blob, fileName);
+
         await successCallback();
     } catch (error) {
         if (error.response && error.response.data && error.response.data.message !== "") {
