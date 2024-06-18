@@ -1,0 +1,97 @@
+@import "../../Components/GlobalStyles/variables";
+
+.home {
+    background: $primary-color1;
+    border-radius: 4px;
+    height: 100%;
+
+    .head {
+        padding: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-weight: 600;
+
+        .head-left {
+            font-size: 18px;
+        }
+
+        .head-left, .head-right {
+
+            button {
+                background: $primary-color22;
+                padding: 4px 12px;
+                font-size: 18px;
+                font-weight: 600;
+                border: none;
+                border-radius: 4px;
+                color: $primary-color5;
+            }
+
+            button:hover {
+                cursor: pointer;
+                scale: 1.02;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2),
+            }
+        }
+    }
+
+    .body {
+        .category {
+            margin-bottom: 20px;
+        }
+
+
+        .category-name {
+            padding: 0 8px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .subject {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 8px;
+            padding: 4px 10px;
+            background-color: $primary-color23;
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+
+        .subject:hover {
+            cursor: pointer;
+            background-color: $primary-color21;
+            scale: 1.01;
+        }
+
+        .subject-actions {
+            button {
+                color: $primary-color5;
+                margin-left: 10px;
+                font-size: 13px;
+                padding: 4px;
+                border-radius: 4px;
+                border: none;
+            }
+
+            button:hover {
+                cursor: pointer;
+                scale: 1.05;
+            }
+
+            .subject-actions1 {
+                background: $primary-color6;
+            }
+
+            .subject-actions2 {
+                background: $primary-color7;
+            }
+
+            .subject-actions3 {
+                background: $primary-color8;
+            }
+        }
+    }
+}

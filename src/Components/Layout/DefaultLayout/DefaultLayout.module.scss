@@ -1,0 +1,31 @@
+@import "../../GlobalStyles/variables";
+
+.container {
+    background: $primary-color21;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    /* Đảm bảo chiều cao tối thiểu bằng chiều cao viewport */
+    margin: 0;
+}
+
+.default-layout {
+    background-color: $primary-color5;
+    width: 1200px;
+    height: 680px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-clip: padding-box;
+    /* Giúp làm cho các góc bo tròn mượt mà hơn */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+
+    .wrap {
+        background: $primary-color3;
+        padding: 24px;
+        height: 100%;
+        .wrap-child {
+            height: 94%;
+            border-radius: 4px;
+        }
+    }
+}

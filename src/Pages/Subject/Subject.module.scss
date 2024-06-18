@@ -1,0 +1,200 @@
+@import "../../Components/GlobalStyles/variables";
+
+.subject {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+
+    .modal-create-update,
+    .show-subject {
+        background: $primary-color1;
+        height: 100%;
+        border-radius: 4px;
+    }
+
+    .modal-create-update {
+        width: 29%;
+        $text-color: #2c3e50;
+
+        h2 {
+            padding: 4px 8px;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+
+            li {
+                margin-bottom: 8px;
+                display: flex;
+                flex-direction: column;
+
+                label {
+                    font-size: 14px;
+                    color: $text-color;
+                }
+
+                input[type="text"],
+                input[type="file"],
+                textarea {
+                    padding: 6px;
+                    border: 1px solid $primary-color16;
+                    border-radius: 5px;
+                    font-size: 12px;
+                    color: $text-color;
+                    background-color: white;
+                    resize: none;
+
+                    &:focus {
+                        border-color: $primary-color22;
+                        box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+                        outline: none;
+                    }
+                }
+
+                textarea {
+                    min-height: 100px;
+                    /* Adjust the height as needed */
+                }
+
+                input[type="file"] {
+                    padding: 5px;
+                }
+
+                input[type="file"]:hover {
+                    cursor: pointer;
+                }
+
+                .error {
+                    padding: 3px;
+                    font-size: 9px;
+                    color: $primary-color8;
+                }
+            }
+        }
+
+        button {
+            display: block;
+            width: 50%;
+            margin: 10px auto 0;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: $primary-color9;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: $primary-color7 0.3s ease;
+
+            &:hover {
+                background-color: $primary-color13;
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 5px rgba(41, 128, 185, 0.5);
+            }
+        }
+    }
+
+    .show-subject {
+        width: 70%;
+        padding: 20px;
+        background-color: #f9f9f9;
+        max-height: 100vh; // Set a max-height to limit the height of the container
+        overflow-y: auto; // Enable vertical scrolling if content overflows
+
+        // Custom scrollbar styles
+        &::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    }
+
+    .question {
+        position: relative; 
+        margin-bottom: 12px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: transform 0.3s, box-shadow 0.3s;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .icons{
+            font-size: 24px;
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+            margin: -16px -14px 0 0;
+            .icon{
+                color:$primary-color6;
+                margin-left: 12px;
+            }
+            &:hover{
+                cursor: pointer;
+            }
+        }
+        .question-text {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .question-image {
+            width: 20%;
+            border-radius: 10px;
+            margin-bottom: 6px;
+            object-fit: cover;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                background: #f1f1f1;
+                padding: 10px 15px;
+                border-radius: 5px;
+                margin-bottom: 6px;
+                font-size: 13px;
+                cursor: pointer;
+                transition: background 0.3s, color 0.3s;
+
+                &:hover {
+                    background: #e1e1e1;
+                }
+
+                &.correct {
+                    background: #d4edda;
+                    color: #155724;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}
