@@ -20,7 +20,7 @@ function CreateExam({ onClose, setIsNotiFailed, setIsNotiSucces, user, axiosJWT 
     if (state && state.listsubjects) {
         subjects = state.listsubjects;
     }
-
+    const totalQuestions = selectedSubjects.reduce((total, subject) => total + parseInt(subject.numQuestions || 0, 10), 0);
     useEffect(() => {
         if (user?.accessToken) {
             getSubject(user?.accessToken, dispatch, axiosJWT);
@@ -45,7 +45,6 @@ function CreateExam({ onClose, setIsNotiFailed, setIsNotiSucces, user, axiosJWT 
 
         let hasErrors = false;
         const validSubjects = selectedSubjects.find(subject => subject.subjectId !== '' && subject.numQuestions > 0);
-        console.log(validSubjects);
         if (!validSubjects) {
             errors.selectedSubjects = 'Bạn vui lòng chọn ít nhất một chuyên đề và số lượng câu hỏi';
             hasErrors = true;
@@ -120,6 +119,10 @@ function CreateExam({ onClose, setIsNotiFailed, setIsNotiSucces, user, axiosJWT 
                 ))}
                 <div className={cx("form-group")}>
                     <button onClick={addSubject}>Thêm chuyên đề</button>
+                    <div className={cx("total-questions")}>
+                        <label>Tổng số câu hỏi:</label>
+                        <span>{totalQuestions}</span>
+                    </div>
                 </div>
                 <div className={cx('error-message')}>{formErrors.selectedSubjects}</div>
                 <div className={cx("form-group3")}>
